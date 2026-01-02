@@ -16,17 +16,19 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from . import views
+
+# Import from core app
+from octofit_tracker.core import views as core_views
 
 router = DefaultRouter()
-router.register(r'users', views.UserViewSet)
-router.register(r'teams', views.TeamViewSet)
-router.register(r'activities', views.ActivityViewSet)
-router.register(r'workouts', views.WorkoutViewSet)
-router.register(r'leaderboard', views.LeaderboardViewSet)
+router.register(r'users', core_views.UserViewSet)
+router.register(r'teams', core_views.TeamViewSet)
+router.register(r'activities', core_views.ActivityViewSet)
+router.register(r'workouts', core_views.WorkoutViewSet)
+router.register(r'leaderboard', core_views.LeaderboardViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.api_root, name='api-root'),
+    path('', core_views.api_root, name='api-root'),
     path('', include(router.urls)),
 ]
